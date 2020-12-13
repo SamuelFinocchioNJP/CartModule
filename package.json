@@ -1,20 +1,22 @@
 {
-    "name": "carrello-massari",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.9.0",
-        "@typescript-eslint/parser": "^4.9.0",
-        "eslint": "^7.15.0",
-        "jest": "^26.6.3",
-        "prettier": "^2.2.1",
-        "tsc": "^1.20150623.0",
-        "typescript": "^4.1.2"
-    }
+  "name": "carrello-massari",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config ./jest.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^26.0.16",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
+    "eslint": "^7.15.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "ts-jest": "^26.4.4",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.2"
+  }
 }
