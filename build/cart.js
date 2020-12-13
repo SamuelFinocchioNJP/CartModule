@@ -1,54 +1,50 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+exports.Cart = void 0;
 class Cart {
     constructor() {
-        this.items = new Map();
+        this.items = new Array();
         this.subtotal = 0;
     }
     getAdditionsCost(additions) {
         return additions
-            .map((addition) => addition.price)
+            .map((addition) => { var _a; return addition.price * ((_a = addition.amount) !== null && _a !== void 0 ? _a : 1); })
             .reduce((accumulator, current) => accumulator + current);
     }
-    addToCart(key, item) {
-        /// If item exist already
-        if (this.items.has(key)) {
-            return false;
-        }
+    addToCart(item) {
         /// Adds item and it's price
-        if (this.items.set(key, item)) {
-            this.subtotal += item.price * item.amount;
+        const currentItemsAmount = this.items.length;
+        if (this.items.push(item) === currentItemsAmount + 1) {
+            this.subtotal += item.price;
             if (item.additions) {
-                this.subtotal += this.getAdditionsCost([
-                    ...item.additions.values(),
-                ]);
+                this.subtotal += this.getAdditionsCost(item.additions);
             }
+            /// Returns true if item has been successfully inserted
+            return true;
         }
-        /// Returns true if item has been successfully inserted
-        return this.items.has(key);
+        return false;
     }
-    removeFromCart(key) {
+    removeFromCart(index) {
         /// Retrieves item
-        const item = this.items.get(key);
+        const item = this.items[index];
         /// If item did NOT exist
         if (item === undefined) {
             return false;
         }
         /// Attempts deletion
-        if (this.items.delete(key)) {
+        if (this.items.splice(index, 1) !== []) {
             /// Scales subtotal
-            this.subtotal -= item.price * item.amount;
+            this.subtotal -= item.price;
+            /// Scales additions price
+            if (item.additions) {
+                this.subtotal -= this.getAdditionsCost(item.additions);
+            }
+            return true;
         }
-        /// Returns true if item no longer exists
-        return !this.items.has(key);
+        return false;
     }
     checkout(cb) {
-        /// Callback with a SHALLOW COPY of the cart
-        cb(Object.assign({}, this.items));
-        return Object.assign({}, this);
-    }
-    toArray() {
-        return [...this.items.values()];
+        return cb([...this.items], this.subtotal);
     }
 }
+exports.Cart = Cart;
