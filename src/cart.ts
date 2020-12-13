@@ -2,8 +2,7 @@ import { ICart } from './interfaces/cart.prototype';
 import { PriceableAddition } from './models/priceable-addition.model';
 import { PriceableItem } from './models/priceable-item.model';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-class Cart<T extends PriceableItem> implements ICart<T> {
+export class Cart<T extends PriceableItem> implements ICart<T> {
 	items: Map<string, T>;
 	subtotal: number;
 
