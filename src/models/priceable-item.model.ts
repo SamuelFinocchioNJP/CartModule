@@ -1,8 +1,7 @@
 import { PriceableAddition } from './priceable-addition.model';
 
-export interface PriceableItem {
+export interface PriceableItem<T extends PriceableAddition> {
 	name: string;
 	price: number;
-	amount: number;
-	additions?: Set<PriceableAddition>;
+	additions?: Array<T>;
 }
